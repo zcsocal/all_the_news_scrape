@@ -29,14 +29,28 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to the Mongo DB
+// OLD - Connect to the Mongo DB
 // mongoose.connect("mongodb://localhost/npr", { useNewUrlParser: true });
 
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/npr";
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/npr";
 
-mongoose.connect(MONGODB_URI);
+// mongoose.connect(MONGODB_URI);
+
+
+// -----New DB Connection
+
+mongoose.connect("mongodb://localhost/npr", { useNewUrlParser: true });
+
+var databaseUrl = 'mongodb://localhost/npr'
+
+if (process.env.MONGODB_URI) {
+	mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+	mongoose.connect(databaseUrl);
+};
 
 
 
