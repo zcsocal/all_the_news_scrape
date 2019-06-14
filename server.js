@@ -30,8 +30,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/npr", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/npr", { useNewUrlParser: true });
 
+
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/npr";
+
+mongoose.connect(MONGODB_URI);
 
 
 
